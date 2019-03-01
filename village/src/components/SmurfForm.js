@@ -4,10 +4,15 @@ class SmurfForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      editForm: false,
       name: '',
       age: '',
       height: ''
     };
+  }
+
+  componentDidMount() {
+    if(this.props.formType === 'edit') this.setState({ editForm: true });
   }
 
   addSmurf = event => {
@@ -24,7 +29,7 @@ class SmurfForm extends Component {
     }
 
     //invoke the addSmurfHandler method from App.js, with the appropriate arguments
-    this.props.addSmurfHandler(newSmurf);
+    this.props.addSmurfHandler(newSmurf, this.props.history);
 
     //reset the values on state
     this.setState({
@@ -63,7 +68,7 @@ class SmurfForm extends Component {
             name="height"
             className="input-field"
           />
-          <button type="submit" className="input-btn">Add to the village</button>
+          <button type="submit" className="input-btn">{(this.state.editForm)? 'Edit This Smurf': 'Add New Smurf'}</button>
         </form>
       </div>
     );

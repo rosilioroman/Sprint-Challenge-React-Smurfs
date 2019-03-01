@@ -8,6 +8,7 @@ import'./components/components.css';
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 import NavBar from './components/NavBar';
+import SmurfEdit from './components/SmurfEdit';
 
 class App extends Component {
   constructor(props) {
@@ -27,9 +28,12 @@ class App extends Component {
 
   //method for adding a new smurf to the Smurf DB
   //Note: this method gets called inside of another method in the SmurfForm component
-  addSmurfHandler = (newSmurf) => {
+  addSmurfHandler = (newSmurf, history) => {
     axios.post('http://localhost:3333/smurfs', newSmurf)
-    .then(res => this.setState({ smurfs: res.data }))
+    .then(res => {
+      this.setState({ smurfs: res.data });
+      history.push('/'); 
+    })
     .catch(err => console.error(err));
   }
 
@@ -40,8 +44,9 @@ class App extends Component {
         <div className="village-img">
           <img src="https://www.topbestalternatives.com/wp-content/uploads/2017/11/smurfs-village.jpg" alt="smurf village" />
         </div>
-        <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}/>
+        <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs} />} />
         <Route path="/smurf-form" render={props => <SmurfForm {...props} addSmurfHandler={this.addSmurfHandler} />} />
+        <Route path="/smurf/:id" render={props => <SmurfEdit {...props} smurfs={this.state.smurfs} />} />
       </div>
     );
   }
