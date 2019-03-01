@@ -21,10 +21,18 @@ class App extends Component {
     .catch(err => console.error(err));
   }
 
+  //method for adding a new smurf to the Smurf DB
+  //Note: this method gets called inside of another method in the SmurfForm component
+  addSmurfHandler = (newSmurf) => {
+    axios.post('http://localhost:3333/smurfs', newSmurf)
+    .then(res => this.setState({ smurfs: res.data }))
+    .catch(err => console.error(err));
+  }
+
   render() {
     return (
       <div className="App">
-        <SmurfForm />
+        <SmurfForm addSmurfHandler={this.addSmurfHandler}/>
         <Smurfs smurfs={this.state.smurfs} />
       </div>
     );
