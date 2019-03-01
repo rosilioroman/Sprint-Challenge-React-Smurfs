@@ -1,3 +1,10 @@
 .App {
-  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.village-img {
+  max-width: 600px;
 }

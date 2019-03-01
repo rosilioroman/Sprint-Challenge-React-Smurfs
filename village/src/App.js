@@ -3,6 +3,8 @@ import { Route } from 'react-router-dom';
 import axios from 'axios';
 
 import './App.css';
+import'./components/components.css';
+
 import SmurfForm from './components/SmurfForm';
 import Smurfs from './components/Smurfs';
 import NavBar from './components/NavBar';
@@ -35,6 +37,9 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
+        <div className="village-img">
+          <img src="https://www.topbestalternatives.com/wp-content/uploads/2017/11/smurfs-village.jpg" alt="smurf village" />
+        </div>
         <Route exact path="/" render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}/>
         <Route path="/smurf-form" render={props => <SmurfForm {...props} addSmurfHandler={this.addSmurfHandler} />} />
       </div>
